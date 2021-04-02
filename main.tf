@@ -16,7 +16,7 @@ module "s3-bucket" {
   request_payer                        = var.request_payer
   website                              = var.website
   cors_rule                            = var.cors_rule
-  versioning                           = var.versioning
+  versioning                           = local.versioning
   logging                              = var.logging
   grant                                = var.grant
   lifecycle_rule                       = var.lifecycle_rule
