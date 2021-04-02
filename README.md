@@ -10,7 +10,7 @@
 
 ## Version
 
-Current version: v0.1.1
+Current version: v0.2.0
 
 ## Description
 
@@ -18,7 +18,7 @@ Describe what your module does here.
 
 ## Usage
 
-Describe how to use your module here.
+[See terraform registy module](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)
 
 ## Prerequites
 
