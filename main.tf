@@ -2,22 +2,21 @@ module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "1.22.0"
 
-  create_bucket                        = var.create_bucket
-  attach_elb_log_delivery_policy       = var.attach_elb_log_delivery_policy
-  attach_policy                        = var.attach_policy
-  attach_public_policy                 = var.attach_public_policy
-  bucket                               = local.bucket_name
-  bucket_prefix                        = var.bucket_prefix
-  acl                                  = var.acl
-  policy                               = var.policy
-  tags                                 = var.tags
-  force_destroy                        = var.force_destroy
-  acceleration_status                  = var.acceleration_status
-  request_payer                        = var.request_payer
-  website                              = var.website
-  cors_rule                            = var.cors_rule
-  versioning                           = local.versioning
-  logging                              = var.logging
+  create_bucket                  = var.create_bucket
+  attach_elb_log_delivery_policy = var.attach_elb_log_delivery_policy
+  attach_policy                  = var.attach_policy
+  attach_public_policy           = var.attach_public_policy
+  bucket                         = local.bucket_name
+  bucket_prefix                  = var.bucket_prefix
+  acl                            = var.acl
+  policy                         = data.aws_iam_policy_document.bucket_policy.json
+  tags                           = var.tags
+  force_destroy                  = var.force_destroy
+  acceleration_status            = var.acceleration_status
+  request_payer                  = var.request_payer
+  website                        = var.website
+  cors_rule                      = var.cors_rule
+  versioning                     = var.versioning
   grant                                = var.grant
   lifecycle_rule                       = var.lifecycle_rule
   replication_configuration            = var.replication_configuration
@@ -29,7 +28,26 @@ module "s3_bucket" {
   restrict_public_buckets              = var.restrict_public_buckets
 }
 
+data "aws_iam_policy_document" "bucket_policy" {
+  statement {
+    sid = "AllowSSLRequestsOnly"
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:*",
+    ]
 
-
-
-
+    resources = [
+      "arn:aws:s3:::${local.bucket_name}",
+      "arn:aws:s3:::${local.bucket_name}/*",
+    ]
+    condition {
+      test     = "Bool"
+      values   = ["false"]
+      variable = "aws:SecureTransport"
+    }
+  }
+}
