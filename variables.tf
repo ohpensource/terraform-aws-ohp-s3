@@ -100,7 +100,7 @@ variable "versioning" {
 variable "logging" {
   description = "Map containing access bucket logging configuration."
   type        = map(string)
-  default     = {
+  default = {
     #    target_bucket = ""
     #    target_prefix = "log/"
   }
@@ -154,7 +154,7 @@ variable "server_side_encryption_configuration" {
 variable "object_lock_configuration" {
   description = "Map containing S3 object locking configuration."
   type        = any
-  default     = {
+  default = {
     object_lock_enabled = "Enabled"
   }
 }
