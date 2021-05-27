@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.2.3
+
+- patch: merged in feature/lanz-1047-check-fix-s3-terraform-module- (pull request #4)
+
 ## 0.2.2
 
 - patch: lanz-586  change default encryption to aes256
