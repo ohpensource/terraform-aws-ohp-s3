@@ -9,15 +9,14 @@ module "s3_bucket" {
   bucket                               = local.bucket_name
   bucket_prefix                        = var.bucket_prefix
   acl                                  = var.acl
-  policy                               = var.policy
+  policy                               = data.aws_iam_policy_document.bucket_policy.json
   tags                                 = var.tags
   force_destroy                        = var.force_destroy
   acceleration_status                  = var.acceleration_status
   request_payer                        = var.request_payer
   website                              = var.website
   cors_rule                            = var.cors_rule
-  versioning                           = local.versioning
-  logging                              = var.logging
+  versioning                           = var.versioning
   grant                                = var.grant
   lifecycle_rule                       = var.lifecycle_rule
   replication_configuration            = var.replication_configuration
@@ -29,7 +28,26 @@ module "s3_bucket" {
   restrict_public_buckets              = var.restrict_public_buckets
 }
 
+data "aws_iam_policy_document" "bucket_policy" {
+  statement {
+    sid = "AllowSSLRequestsOnly"
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:*",
+    ]
 
-
-
-
+    resources = [
+      "arn:aws:s3:::${local.bucket_name}",
+      "arn:aws:s3:::${local.bucket_name}/*",
+    ]
+    condition {
+      test     = "Bool"
+      values   = ["false"]
+      variable = "aws:SecureTransport"
+    }
+  }
+}

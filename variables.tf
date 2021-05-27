@@ -29,7 +29,7 @@ variable "attach_elb_log_delivery_policy" {
 variable "attach_policy" {
   description = "Controls if S3 bucket should have bucket policy attached (set to `true` to use value of `policy` as bucket policy)"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "attach_public_policy" {
@@ -44,15 +44,19 @@ variable "acl" {
   default     = "private"
 }
 
-variable "policy" {
-  description = "(Optional) A valid bucket policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide."
-  type        = string
-  default     = null
-}
-
 variable "tags" {
   description = "(Required) A mapping of tags to assign to the bucket."
   type        = map(string)
+  default = {
+    Stage        = ""
+    IacRepo      = "https://bitbucket.org/..."
+    Client       = ""
+    Service      = ""
+    ServiceGroup = ""
+    Team         = ""
+    Version      = ""
+    Datadog      = ""
+  }
 }
 
 variable "force_destroy" {
@@ -85,23 +89,21 @@ variable "cors_rule" {
   default     = []
 }
 
-# variable "versioning" {
-#   description = "Map containing versioning configuration."
-#   type        = map(string)
-#   default = {
-#     enable = true
-#   }
-# }
-
-variable "enable_versioning" {
-  description = "Enable versioning"
-  default     = true
+variable "versioning" {
+  description = "Map containing versioning configuration."
+  type        = map(string)
+  default = {
+    enabled = true
+  }
 }
 
 variable "logging" {
   description = "Map containing access bucket logging configuration."
   type        = map(string)
-  default     = {}
+  default = {
+    #    target_bucket = ""
+    #    target_prefix = "log/"
+  }
 }
 
 variable "grant" {
@@ -152,7 +154,9 @@ variable "server_side_encryption_configuration" {
 variable "object_lock_configuration" {
   description = "Map containing S3 object locking configuration."
   type        = any
-  default     = {}
+  default = {
+    object_lock_enabled = "Enabled"
+  }
 }
 
 variable "block_public_acls" {
