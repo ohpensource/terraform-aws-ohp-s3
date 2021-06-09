@@ -1,6 +1,6 @@
 module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "1.22.0"
+  version = "2.3.0"
 
   create_bucket                        = var.create_bucket
   attach_elb_log_delivery_policy       = var.attach_elb_log_delivery_policy
@@ -28,26 +28,4 @@ module "s3_bucket" {
   restrict_public_buckets              = var.restrict_public_buckets
 }
 
-data "aws_iam_policy_document" "bucket_policy" {
-  statement {
-    sid = "AllowSSLRequestsOnly"
-    principals {
-      type        = "*"
-      identifiers = ["*"]
-    }
-    effect = "Deny"
-    actions = [
-      "s3:*",
-    ]
 
-    resources = [
-      "arn:aws:s3:::${local.bucket_name}",
-      "arn:aws:s3:::${local.bucket_name}/*",
-    ]
-    condition {
-      test     = "Bool"
-      values   = ["false"]
-      variable = "aws:SecureTransport"
-    }
-  }
-}
