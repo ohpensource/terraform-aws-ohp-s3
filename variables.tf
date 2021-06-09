@@ -26,6 +26,12 @@ variable "attach_elb_log_delivery_policy" {
   default     = false
 }
 
+variable "policy" {
+  description = "(Optional) A valid bucket policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy."
+  type        = string
+  default     = null
+}
+
 variable "attach_policy" {
   description = "Controls if S3 bucket should have bucket policy attached (set to `true` to use value of `policy` as bucket policy)"
   type        = bool
