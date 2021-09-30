@@ -18,7 +18,7 @@ Check GitHub for latest version number
 
 ## Version
 
-Current version: v1.0.0
+Current version: v1.1.0
 
 ## Description
 
