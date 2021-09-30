@@ -1,3 +1,11 @@
+# MIGRATED TO GITHUB
+This module can be pulled directly from github. Update source to
+
+"github.com/ohpensource/terraform-aws-ohp-s3?ref=v0.0.0.2"
+
+Check GitHub for latest version number
+
+
 # XOPS Terraform Module - S3
 
 ## Maintainer
