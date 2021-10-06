@@ -97,7 +97,8 @@ function getUpdatedVersion(version, changes) {
     newSecondary = secondary + 1;
   }
 
-  return `${newMajor}.${newMinor}.${newPatch}.${newSecondary}`;
+  return `${newMajor}.${newMinor}.${newPatch}`;
+  // return `${newMajor}.${newMinor}.${newPatch}.${newSecondary}`;
 }
 function getChange(line) {
   if (line.startsWith(featPreffix)) {
@@ -127,7 +128,8 @@ function getPreviousVersionAsText(versionFileContent) {
   if (versionFileContent.version) {
     previousVersion = versionFileContent.version;
   } else {
-    previousVersion = "v0.0.0.0";
+    previousVersion = "v0.0.0";
+    // previousVersion = "v0.0.0.0";
   }
   return previousVersion;
 }
@@ -167,7 +169,7 @@ function updateChangelogFile(newVersion, changes) {
   console.log(changelog);
   let previousChangelog = "";
   try {
-    previousChangelog = fs.readFileSync(changelogFile, "utf-8");
+    previousChangelog = fs.readFileSync(changelogFile, "utf8");
   } catch (error) {
     previousChangelog = "";
   }
