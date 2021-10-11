@@ -53,16 +53,7 @@ variable "acl" {
 variable "tags" {
   description = "(Required) A mapping of tags to assign to the bucket."
   type        = map(string)
-  default = {
-    Stage        = ""
-    IacRepo      = "https://bitbucket.org/..."
-    Client       = ""
-    Service      = ""
-    ServiceGroup = ""
-    Team         = ""
-    Version      = ""
-    Datadog      = ""
-  }
+  default     = {}
 }
 
 variable "force_destroy" {
