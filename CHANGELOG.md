@@ -1,3 +1,9 @@
+# :confetti_ball: 0.0.3 (2022-02-14T10:34:58.838Z)
+- - -
+## :newspaper: Others
+* ci: LANZ-1654 add cicd workflows (#11)
+- - -
+- - -
 # :confetti_ball: 0.0.1 (2021-10-06T09:02:28.326Z)
 - - -
 ## :bug: Fixes
