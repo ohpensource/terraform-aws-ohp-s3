@@ -1,3 +1,9 @@
+# :confetti_ball: 1.1.1 (2022-03-13T12:30:12.264Z)
+- - -
+## :newspaper: Others
+* minor upgrade version after history merge
+- - -
+- - -
 # :confetti_ball: 0.0.4 (2022-03-13T12:25:54.448Z)
 - - -
 ## :newspaper: Others
