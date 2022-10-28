@@ -1,6 +1,6 @@
 module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.14.1"
+  version = "3.4.1"
 
   create_bucket                        = var.create_bucket
   attach_elb_log_delivery_policy       = var.attach_elb_log_delivery_policy
