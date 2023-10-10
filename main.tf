@@ -60,7 +60,6 @@ resource "aws_s3_bucket_public_access_block" "bucket_public_access_block" {
   restrict_public_buckets = true
 }
 
-
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_config" {
   count  = var.object_expiration_in_days == null ? 0 : 1
   bucket = aws_s3_bucket.bucket.bucket
