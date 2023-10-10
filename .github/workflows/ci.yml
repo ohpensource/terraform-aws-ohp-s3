@@ -24,5 +24,3 @@ jobs:
           use-backend: "false"
       - uses: aquasecurity/tfsec-action@v1.0.3
         name: Analyse terraform security
-        with:
-          additional_args: --exclude [aws-s3-enable-bucket-logging]

@@ -2,6 +2,7 @@ resource "aws_s3_bucket" "bucket" {
   bucket        = var.name
   force_destroy = var.allow_force_destroy
   tags          = var.tags
+  #tfsec:ignore:aws-s3-enable-bucket-logging
 }
 
 data "aws_iam_policy_document" "bucket_policy" {
