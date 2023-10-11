@@ -1,3 +1,9 @@
+# :confetti_ball: 2.0.0 (2023-10-11T08:10:50.697Z)
+- - -
+## :boom: BREAKING CHANGES
+* break: [CMM-21776](https://ohpen.atlassian.net/browse/CMM-21776) - new structure of repo (#142)
+- - -
+- - -
 # :confetti_ball: 1.1.1 (2022-03-13T12:30:12.264Z)
 - - -
 ## :newspaper: Others
