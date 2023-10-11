@@ -1,29 +1,6 @@
 variable "name" {
-  description = "(Optional, Forces new resource) The name of the bucket. If omitted, Terraform will assign a random, unique name."
+  description = "The name of the bucket"
   type        = string
-  default     = null
-}
-
-variable "bucket_prefix" {
-  description = "(Optional, Forces new resource) Creates a unique bucket name beginning with the specified prefix. Conflicts with bucket."
-  type        = string
-  default     = null
-}
-
-variable "region" {
-  default = "eu-west-1"
-}
-
-variable "create_bucket" {
-  description = "Controls if S3 bucket should be created"
-  type        = bool
-  default     = true
-}
-
-variable "attach_elb_log_delivery_policy" {
-  description = "Controls if S3 bucket should have ELB log delivery policy attached"
-  type        = bool
-  default     = false
 }
 
 variable "policy" {
@@ -32,150 +9,32 @@ variable "policy" {
   default     = null
 }
 
-variable "attach_policy" {
-  description = "Controls if S3 bucket should have bucket policy attached (set to `true` to use value of `policy` as bucket policy)"
-  type        = bool
-  default     = true
-}
-
-variable "attach_public_policy" {
-  description = "Controls if a user defined public bucket policy will be attached (set to `false` to allow upstream to apply defaults to the bucket)"
-  type        = bool
-  default     = true
-}
-
-variable "acl" {
-  description = "(Optional) The canned ACL to apply. Defaults to 'private'. Conflicts with `grant`"
-  type        = string
-  default     = "private"
-}
-
 variable "tags" {
   description = "(Required) A mapping of tags to assign to the bucket."
   type        = map(string)
   default     = {}
 }
 
-variable "force_destroy" {
+variable "allow_force_destroy" {
   description = "(Optional, Default:false ) A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
   type        = bool
   default     = false
 }
 
-variable "acceleration_status" {
-  description = "(Optional) Sets the accelerate configuration of an existing bucket. Can be Enabled or Suspended."
-  type        = string
+variable "versioning_enabled" {
+  description = "Enable versioning"
+  type        = bool
+  default     = true
+}
+
+variable "object_expiration_in_days" {
+  description = "Object expiration in days"
+  type        = number
   default     = null
 }
 
-variable "request_payer" {
-  description = "(Optional) Specifies who should bear the cost of Amazon S3 data transfer. Can be either BucketOwner or Requester. By default, the owner of the S3 bucket would incur the costs of any data transfer. See Requester Pays Buckets developer guide for more information."
+variable "kms_key_arn" {
+  description = "Arn of KMS key to use for bucket encryption. Default encryption will be used if this element is absent."
   type        = string
-  default     = "BucketOwner"
-}
-
-variable "website" {
-  description = "Map containing static web-site hosting or redirect configuration."
-  type        = map(string)
-  default     = {}
-}
-
-variable "cors_rule" {
-  description = "List of maps containing rules for Cross-Origin Resource Sharing."
-  type        = any
-  default     = []
-}
-
-variable "versioning" {
-  description = "Map containing versioning configuration."
-  type        = map(string)
-  default = {
-    enabled = true
-  }
-}
-
-variable "logging" {
-  description = "Map containing access bucket logging configuration."
-  type        = map(string)
-  default = {
-    #    target_bucket = ""
-    #    target_prefix = "log/"
-  }
-}
-
-variable "grant" {
-  description = "An ACL policy grant. Conflicts with `acl`"
-  type        = any
-  default     = []
-}
-
-variable "lifecycle_rule" {
-  description = "List of maps containing configuration of object lifecycle management."
-  type        = any
-  default = [
-    {
-      id      = "default"
-      enabled = true
-      transition = [
-        {
-          days          = 180
-          storage_class = "ONEZONE_IA"
-        },
-        {
-          days          = 400
-          storage_class = "GLACIER"
-        }
-      ]
-    }
-  ]
-}
-
-variable "replication_configuration" {
-  description = "Map containing cross-region replication configuration."
-  type        = any
-  default     = {}
-}
-
-variable "server_side_encryption_configuration" {
-  description = "Map containing server-side encryption configuration."
-  type        = any
-  default = {
-    rule = {
-      apply_server_side_encryption_by_default = {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-}
-
-variable "object_lock_configuration" {
-  description = "Map containing S3 object locking configuration."
-  type        = any
-  default = {
-    object_lock_enabled = "Enabled"
-  }
-}
-
-variable "block_public_acls" {
-  description = "Whether Amazon S3 should block public ACLs for this bucket."
-  type        = bool
-  default     = true
-}
-
-variable "block_public_policy" {
-  description = "Whether Amazon S3 should block public bucket policies for this bucket."
-  type        = bool
-  default     = true
-}
-
-variable "ignore_public_acls" {
-  description = "Whether Amazon S3 should ignore public ACLs for this bucket."
-  type        = bool
-  default     = true
-}
-
-variable "restrict_public_buckets" {
-  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
-  type        = bool
-  default     = true
+  default     = null
 }
